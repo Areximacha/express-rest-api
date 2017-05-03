@@ -42,12 +42,12 @@ router.get('/', function (req, res) {
 router.route('/heroes')
 
   // create a hero (accessed at POST http://localhost:8080/api/heroes)
-  .post(function(req, res) {
+  .post(function (req, res) {
     var hero = new Hero() // create a new instance of hero model
     hero.name = req.body.name // set the hero name (comes from the request)
 
     // save the hero and check for errors
-    hero.save(function(error) {
+    hero.save(function (error) {
       if (error)
         res.send(error)
 
@@ -56,12 +56,57 @@ router.route('/heroes')
   })
 
   // get all the heroes (accessed at GET http://local:8080/api/heroes)
-  .get(function(req, res) {
-    Hero.find(function(error, heroes) {
+  .get(function (req, res) {
+    Hero.find(function (error, heroes) {
       if (error)
         res.send(err)
 
       res.json(heroes)
+    })
+  })
+
+// on routes that end in /bears/:bear_id
+// ----------------------------------------------------
+
+router.route('/heroes/:hero_id')
+
+  // get the hero with that id (accessed at GET http://localhost:8080/api/heroes/:bear_id)
+  .get(function (req, res) {
+    Hero.findById(req.params.hero_id, function (error, hero) {
+      if (error)
+        res.send(error)
+      res.json(hero)
+    })
+  })
+
+  // update the hero with this id (accessed at GET http://localhost:8080/api/heroes/:bear_id)
+  .put(function (req, res) {
+
+    // use our hero model to find the hero we want
+    Hero.findById(req.params.hero_id, function (error, hero) {
+      if (error)
+        res.send(error)
+
+      hero.name = req.body.name // update the hero name
+
+      //save the hero
+      hero.save(function (error) {
+        if (error)
+          res.send(error)
+
+        res.json({ message: 'Hero updated!' })
+      })
+    })
+  })
+
+  // delete the hero with this id (accessed at GET http://localhost:8080/api/heroes/:bear_id)
+  .delete(function (req, res) {
+    Hero.remove({
+      _id: req.params.hero_id
+    }, function (error, hero) {
+      if (error)
+        res.send(error)
+      res.json({ message: 'Successfully deleted' })
     })
   })
 

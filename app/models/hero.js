@@ -1,8 +1,8 @@
 var mongoose = require('mongoose')
 var Schema = mongoose.Schema
 
-var heroSchema = new Schema({
+var HeroSchema = new Schema({
   name: String
 })
 
-module.exports = mongoose.model('Hero', heroSchema)
+module.exports = mongoose.model('Hero', HeroSchema)
