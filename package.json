@@ -1,0 +1,13 @@
+{
+  "name": "express-api",
+  "version": "1.0.0",
+  "description": "REST API using express",
+  "main": "server.js",
+  "author": "Jay Tang",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.6"
+  }
+}
